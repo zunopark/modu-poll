@@ -56,6 +56,10 @@ export const MainFeatures = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
+            onClick={() => {
+              onNavigate("place");
+              window.scrollTo(0, 0);
+            }}
             className="group relative h-[300px] rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-2"
           >
             <div className="absolute inset-0">
@@ -88,6 +92,10 @@ export const MainFeatures = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
+            onClick={() => {
+              onNavigate("combo");
+              window.scrollTo(0, 0);
+            }}
             className="group relative h-[300px] rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-2"
           >
             <div className="absolute inset-0">
@@ -120,6 +128,10 @@ export const MainFeatures = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
+            onClick={() => {
+              onNavigate("community");
+              window.scrollTo(0, 0);
+            }}
             className="group relative h-[300px] rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-2"
           >
             <div className="absolute inset-0">
