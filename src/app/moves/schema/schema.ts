@@ -1,32 +1,33 @@
 // schema.ts
-import { pgTable, serial, text, varchar, timestamp, primaryKey } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, varchar, timestamp, primaryKey, uuid } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
+import { profiles } from '@/app/my/schema/schema';
 
 // 동작 테이블
 export const moves = pgTable('moves', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 100 }).notNull(),
-  nameKorean: varchar('name_korean', { length: 100 }), // 한글명 (선택)
+  name_korean: varchar('name_korean', { length: 100 }), // 한글명 (선택)
   level: varchar('level', { length: 50 }).notNull(), // beginner, intermediate, advanced
-  videoId: varchar('video_id', { length: 100 }),
+  video_id: varchar('video_id', { length: 100 }),
   description: text('description'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  created_at: timestamp('created_at').defaultNow().notNull(),
+  updated_at: timestamp('updated_at').defaultNow().notNull(),
 });
 
 // 태그 테이블
 export const tags = pgTable('tags', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 50 }).notNull().unique(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
+  created_at: timestamp('created_at').defaultNow().notNull(),
 });
 
 // 동작-태그 중간 테이블 (Many-to-Many)
 export const movesToTags = pgTable('moves_to_tags', {
-  moveId: serial('move_id').notNull().references(() => moves.id, { onDelete: 'cascade' }),
-  tagId: serial('tag_id').notNull().references(() => tags.id, { onDelete: 'cascade' }),
+  move_id: serial('move_id').notNull().references(() => moves.id, { onDelete: 'cascade' }),
+  tag_id: serial('tag_id').notNull().references(() => tags.id, { onDelete: 'cascade' }),
 }, (table) => ({
-  pk: primaryKey({ columns: [table.moveId, table.tagId] }),
+  pk: primaryKey({ columns: [table.move_id, table.tag_id] }),
 }));
 
 // Relations 정의
@@ -40,11 +41,33 @@ export const tagsRelations = relations(tags, ({ many }) => ({
 
 export const movesToTagsRelations = relations(movesToTags, ({ one }) => ({
   move: one(moves, {
-    fields: [movesToTags.moveId],
+    fields: [movesToTags.move_id],
     references: [moves.id],
   }),
   tag: one(tags, {
-    fields: [movesToTags.tagId],
+    fields: [movesToTags.tag_id],
     references: [tags.id],
   }),
+}));
+
+// 동작 좋아요 테이블
+export const move_likes = pgTable('move_likes', {
+  move_id: serial('move_id').notNull().references(() => moves.id, { onDelete: 'cascade' }),
+  profile_id: uuid().notNull().references(() => profiles.profile_id, { onDelete: 'cascade' }),
+  created_at: timestamp('created_at').defaultNow().notNull(),
+}, (table) => ({
+  pk: primaryKey({ columns: [table.move_id, table.profile_id] }),
+}));
+
+// 동작 리뷰 댓글
+export const move_reviews = pgTable('move_reviews', {
+  review_id: serial('review_id').primaryKey(),
+  move_id: serial('move_id').notNull().references(() => moves.id, { onDelete: 'cascade' }),
+  profile_id: uuid().notNull().references(() => profiles.profile_id, { onDelete: 'cascade' }),
+  review: text('review').notNull(),
+  user_vote_level: varchar('user_vote_level', { length: 50 }).notNull(), // beginner, intermediate, advanced, master
+  created_at: timestamp('created_at').defaultNow().notNull(),
+  updated_at: timestamp('updated_at').defaultNow().notNull(),
+}, (table) => ({
+  pk: primaryKey({ columns: [table.move_id, table.profile_id] }),
 }));
