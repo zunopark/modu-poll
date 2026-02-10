@@ -25,7 +25,7 @@ export const Navbar = () => {
     }, []);
   
     const navLinks = [
-      { name: "동작백과", href: "/dictionary" },
+      { name: "동작백과", href: "/moves" },
       { name: "콤보메이커", href: "/combo" },
       { name: "폴플레이스", href: "/place" },
       { name: "커뮤니티", href: "/community" },

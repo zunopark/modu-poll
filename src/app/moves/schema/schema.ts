@@ -8,6 +8,8 @@ export const moves = pgTable('moves', {
   name: varchar('name', { length: 100 }).notNull(),
   nameKorean: varchar('name_korean', { length: 100 }), // 한글명 (선택)
   level: varchar('level', { length: 50 }).notNull(), // beginner, intermediate, advanced
+  videoId: varchar('video_id', { length: 100 }),
+  description: text('description'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

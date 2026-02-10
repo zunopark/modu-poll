@@ -5,23 +5,28 @@ import {
   TrendingUp,
   Sparkles,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export const MainFeatures = ({
-    onNavigate,
   }: {
-    onNavigate: (page: string) => void;
   }) => {
+    const router = useRouter();
+    const handleNavigate = (page: string) => {
+      const path = page.startsWith("/") ? page : `/${page}`;
+      router.push(path);
+    };
+
     return (
       <section className="py-16 bg-white relative z-20 px-6 -mt-10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Dictionary Card */}
+          {/* Moves Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             onClick={() => {
-              onNavigate("dictionary");
+              handleNavigate("moves");
               window.scrollTo(0, 0);
             }}
             className="group relative h-[300px] rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-2"
@@ -29,14 +34,14 @@ export const MainFeatures = ({
             <div className="absolute inset-0">
               <img
                 src="https://images.unsplash.com/photo-1519834785169-98be25ec3f84?q=80&w=800&auto=format&fit=crop"
-                alt="Dictionary"
+                alt="Moves"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
             </div>
             <div className="absolute bottom-0 left-0 p-7 w-full">
               <div className="flex items-center gap-2 text-rose-400 text-xs font-bold uppercase tracking-wider mb-2">
-                <Sparkles size={12} /> Dictionary
+                <Sparkles size={12} /> Moves
               </div>
               <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
                 동작 백과
@@ -57,7 +62,7 @@ export const MainFeatures = ({
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
             onClick={() => {
-              onNavigate("place");
+              handleNavigate("place");
               window.scrollTo(0, 0);
             }}
             className="group relative h-[300px] rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-2"
@@ -93,7 +98,7 @@ export const MainFeatures = ({
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
             onClick={() => {
-              onNavigate("combo");
+              handleNavigate("combo");
               window.scrollTo(0, 0);
             }}
             className="group relative h-[300px] rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-2"
@@ -129,7 +134,7 @@ export const MainFeatures = ({
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
             onClick={() => {
-              onNavigate("community");
+              handleNavigate("community");
               window.scrollTo(0, 0);
             }}
             className="group relative h-[300px] rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-2"
