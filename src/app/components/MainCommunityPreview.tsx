@@ -31,7 +31,7 @@ const IMAGES = {
     </svg>
   );
 
-export const CommunityPreview = () => {
+export const MainCommunityPreview = () => {
     const posts = [
       {
         type: "REVIEW",

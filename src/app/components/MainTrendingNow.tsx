@@ -1,6 +1,6 @@
 import { TrendingUp } from "lucide-react";
 
-export const TrendingNow = () => {
+export const MainTrendingNow = () => {
     const trendingItems = [
       {
         rank: 1,

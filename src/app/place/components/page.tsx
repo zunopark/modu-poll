@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { X, Star, Upload, MapPin, Camera } from 'lucide-react';
-import { Place } from '../data/places';
+import { Place } from '../../data/places';
 
 interface Review {
   id: number;
