@@ -83,9 +83,9 @@ export const Navbar = () => {
   
           {/* Right Side Actions */}
           <div className="hidden md:flex items-center space-x-3">
-            {isLoggedIn ? (
+            {!isLoggedIn ? (
               <Link
-                href="/mypage"
+                href="/my"
                 onClick={handleNavClick}
                 className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-lg transition-transform hover:scale-110"
               >

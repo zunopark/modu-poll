@@ -17,13 +17,10 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ALL_POSTS, Category, POPULAR_POSTS } from '../data/community';
+import { useRouter } from 'next/navigation';
 
 // --- Types ---
 type SortOption = "latest" | "popular";
-
-interface CommunityPageProps {
-  onPostClick: (id: number) => void;
-}
 
 // --- Components ---
 
@@ -44,13 +41,13 @@ const CategoryBadge = ({ category }: { category: Category }) => {
   );
 };
 
-const CommunityPage: React.FC<CommunityPageProps> = ({ onPostClick }) => {
+const CommunityPage: React.FC = () => {
   const [currentCategory, setCurrentCategory] = useState<Category>("전체");
   const [currentSort, setCurrentSort] = useState<SortOption>("latest");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
+  const router = useRouter();
   // Filter and Sort Logic
   const filteredPosts = ALL_POSTS.filter(post => {
     const matchesCategory = currentCategory === "전체" || post.category === currentCategory;
@@ -77,6 +74,10 @@ const CommunityPage: React.FC<CommunityPageProps> = ({ onPostClick }) => {
     { label: "팁", icon: PenTool },
   ];
 
+  const handlePostClick = (id: number) => {
+    router.push(`/community/${id}`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 pb-20 pt-[80px]">
       <div className="max-w-7xl mx-auto px-6">
@@ -102,7 +103,7 @@ const CommunityPage: React.FC<CommunityPageProps> = ({ onPostClick }) => {
               <motion.div
                 key={post.id}
                 whileHover={{ y: -5 }}
-                onClick={() => onPostClick(post.id)}
+                onClick={() => handlePostClick(post.id)}
                 className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-lg transition-all cursor-pointer border border-gray-100 flex flex-col h-full"
               >
                 <div className="flex justify-between items-start mb-3">
@@ -207,7 +208,7 @@ const CommunityPage: React.FC<CommunityPageProps> = ({ onPostClick }) => {
             {currentPosts.map((post) => (
               <div 
                 key={post.id}
-                onClick={() => onPostClick(post.id)}
+                onClick={() => handlePostClick(post.id)}
                 className="group p-6 md:py-4 hover:bg-rose-50/30 transition-colors cursor-pointer"
               >
                 {/* Mobile Layout */}
