@@ -15,6 +15,27 @@
       "when": 1770712315672,
       "tag": "0001_daily_nightshade",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1770814442360,
+      "tag": "0002_glossy_stingray",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1770814613446,
+      "tag": "0003_nebulous_the_renegades",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1770819437338,
+      "tag": "0004_nostalgic_gwen_stacy",
+      "breakpoints": true
     }
   ]
 }
