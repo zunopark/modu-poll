@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { MapPin, Phone, Instagram, Navigation, Search, Filter } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PLACES, REGIONS, Place } from '../data/places';
-import PlaceReviewModal from './components/page';
+import { PlaceReviewModal } from './components/page';
 
 const PolePlacePage = ({ isLoggedIn }: { isLoggedIn?: boolean }) => {
   const [selectedRegion, setSelectedRegion] = useState("전체");

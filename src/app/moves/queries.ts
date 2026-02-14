@@ -21,14 +21,18 @@ export async function getAllMoves(): Promise<MoveWithTags[]> {
     id: move.id,
     name: move.name,
     level: move.level,
-    createdAt: move.createdAt,
-    updatedAt: move.updatedAt,
+    videoId: move.video_id ?? '',
+    description: move.description ?? '',
+    createdAt: move.created_at,
+    updatedAt: move.updated_at,
     tags: move.movesToTags.map(mt => mt.tag),
   }));
 }
 
 // 레벨별 동작 조회
-export async function getMovesByLevel(level: string): Promise<MoveWithTags[]> {
+export async function getMovesByLevel(
+  level: 'beginner' | 'intermediate' | 'advanced' | 'master'
+): Promise<MoveWithTags[]> {
   const result = await db.query.moves.findMany({
     where: eq(moves.level, level),
     with: {
@@ -44,8 +48,10 @@ export async function getMovesByLevel(level: string): Promise<MoveWithTags[]> {
     id: move.id,
     name: move.name,
     level: move.level,
-    createdAt: move.createdAt,
-    updatedAt: move.updatedAt,
+    videoId: move.video_id ?? '',
+    description: move.description ?? '',
+    createdAt: move.created_at,
+    updatedAt: move.updated_at,
     tags: move.movesToTags.map(mt => mt.tag),
   }));
 }
@@ -69,8 +75,10 @@ export async function getMoveById(id: number): Promise<MoveWithTags | null> {
     id: result.id,
     name: result.name,
     level: result.level,
-    createdAt: result.createdAt,
-    updatedAt: result.updatedAt,
+    videoId: result.video_id ?? '',
+    description: result.description ?? '',
+    createdAt: result.created_at,
+    updatedAt: result.updated_at,
     tags: result.movesToTags.map(mt => mt.tag),
   };
 }
@@ -102,8 +110,10 @@ export async function getMovesByTag(tagName: string): Promise<MoveWithTags[]> {
     id: mt.move.id,
     name: mt.move.name,
     level: mt.move.level,
-    createdAt: mt.move.createdAt,
-    updatedAt: mt.move.updatedAt,
+    videoId: mt.move.video_id ?? '',
+    description: mt.move.description ?? '',
+    createdAt: mt.move.created_at,
+    updatedAt: mt.move.updated_at,
     tags: mt.move.movesToTags.map(mtt => mtt.tag),
   }));
 }

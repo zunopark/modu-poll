@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     let moves;
 
     if (level) {
-      moves = await getMovesByLevel(level);
+      moves = await getMovesByLevel(level as 'beginner' | 'intermediate' | 'advanced' | 'master');
     } else if (tag) {
       moves = await getMovesByTag(tag);
     } else {

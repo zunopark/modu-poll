@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'motion/react';
 import { X, Star, Upload, MapPin, Camera } from 'lucide-react';
-import { Place } from '../../data/places';
+import { Place, PLACES } from '../../data/places';
 
 interface Review {
   id: number;
@@ -47,7 +48,7 @@ interface PlaceReviewModalProps {
   onClose: () => void;
 }
 
-const PlaceReviewModal = ({ place, isLoggedIn, onClose }: PlaceReviewModalProps) => {
+export const PlaceReviewModal = ({ place, isLoggedIn, onClose }: PlaceReviewModalProps) => {
   const [reviews, setReviews] = useState<Review[]>(MOCK_REVIEWS);
   const [newRating, setNewRating] = useState(0);
   const [newContent, setNewContent] = useState("");
@@ -233,4 +234,28 @@ const PlaceReviewModal = ({ place, isLoggedIn, onClose }: PlaceReviewModalProps)
   );
 };
 
-export default PlaceReviewModal;
+function PlaceComponentsContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const placeId = searchParams.get('id');
+  const place: Place | undefined = placeId
+    ? PLACES.find((p) => p.id === Number(placeId))
+    : PLACES[0];
+  const safePlace = place ?? PLACES[0];
+
+  return (
+    <PlaceReviewModal
+      place={safePlace}
+      isLoggedIn={false}
+      onClose={() => router.push('/place')}
+    />
+  );
+}
+
+export default function PlaceComponentsPage() {
+  return (
+    <Suspense fallback={null}>
+      <PlaceComponentsContent />
+    </Suspense>
+  );
+}
