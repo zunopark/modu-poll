@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { X, Star, Upload, MapPin, Camera } from 'lucide-react';
